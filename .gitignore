@@ -1,0 +1,10 @@
+!/gradlew
+!/gradlew.bat
+!/settings.gradle.kts
+!/build.gradle
+!/.gradle/
+!/build/
+!/gradle/
+!/gradle/wrapper/
+!/gradle/wrapper/gradle-wrapper.jar
+!/gradle/wrapper/gradle-wrapper.properties
