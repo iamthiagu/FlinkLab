@@ -1,0 +1,25 @@
+# Default values for my-flink-app-chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: flink-lab-app # Name of your Docker image
+  tag: latest # Tag of your Docker image
+
+flink:
+  version: v1_20 # Flink version for the Operator to use (e.g., v1_19, v1_20)
+  jobManager:
+    memory: "1024m"
+    cpu: "1"
+  taskManager:
+    memory: "1024m"
+    cpu: "1"
+    numTaskSlots: "1"
+  job:
+    jarURI: local:///opt/flink/usrlib/flink-lab-app.jar
+    entryClass: com.flinklab.FlinkLabApp
+    parallelism: 1
+    upgradeMode: stateless # Options: stateless, savepoint, last-state
+
+serviceAccount:
+  name: flink # Must match the service account created in Kubernetes
