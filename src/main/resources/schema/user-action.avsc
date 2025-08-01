@@ -1,0 +1,10 @@
+{
+  "type": "record",
+  "name": "UserAction",
+  "namespace": "com.flinklab.schema",
+  "fields": [
+    {"name": "userId", "type": "string"},
+    {"name": "action", "type": "string"},
+    {"name": "timestamp", "type": "long", "doc": "Unix timestamp in milliseconds"}
+  ]
+}

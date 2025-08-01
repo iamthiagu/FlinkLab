@@ -1,0 +1,33 @@
+apiVersion: flink.apache.org/v1beta1
+kind: FlinkDeployment
+metadata:
+  name: {{ include "flink-lab-chart.fullname" . }}
+  labels:
+    {{- include "flink-lab-chart.labels" . | nindent 4 }}
+spec:
+  image: {{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}
+  flinkVersion: {{ .Values.flink.version }}
+  ingress:
+    template: "flink.k8s.io/{{`{{namespace}}`}}/{{`{{name}}`}}"
+    className: "nginx"
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /
+  flinkConfiguration:
+    taskmanager.numberOfTaskSlots: "{{ .Values.flink.taskManager.numTaskSlots }}"
+    state.backend: filesystem
+    state.checkpointing.dir: file:///flink-data/checkpoints
+    state.savepoints.dir: file:///flink-data/savepoints
+  serviceAccount: {{ .Values.serviceAccount.name }}
+  jobManager:
+    resource:
+      memory: "{{ .Values.flink.jobManager.memory }}"
+      cpu: "{{ .Values.flink.jobManager.cpu }}"
+  taskManager:
+    resource:
+      memory: "{{ .Values.flink.taskManager.memory }}"
+      cpu: "{{ .Values.flink.taskManager.cpu }}"
+  job:
+    jarURI: {{ .Values.flink.job.jarURI }}
+    entryClass: {{ .Values.flink.job.entryClass }}
+    parallelism: {{ .Values.flink.job.parallelism }}
+    upgradeMode: {{ .Values.flink.job.upgradeMode }}
