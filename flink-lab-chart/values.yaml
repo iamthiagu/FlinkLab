@@ -14,7 +14,7 @@ flink:
   taskManager:
     memory: "1024m"
     cpu: "1"
-    numTaskSlots: "1"
+    numTaskSlots: "2"
   job:
     jarURI: local:///opt/flink/usrlib/flink-lab-app.jar
     entryClass: com.flinklab.FlinkLabApp

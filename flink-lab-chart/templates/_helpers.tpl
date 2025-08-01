@@ -35,11 +35,18 @@ Common labels
 */}}
 {{- define "flink-lab-chart.labels" -}}
 helm.sh/chart: {{ include "flink-lab-chart.chart" . }}
-{{- .Release.Service | nindent 4 }}
+app.kubernetes.io/name: {{ include "flink-lab-chart.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end -}}
+
+{{/*
+Selector labels
+*/}}
+{{- define "flink-lab-chart.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "flink-lab-chart.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
